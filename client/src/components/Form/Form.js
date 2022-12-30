@@ -17,6 +17,7 @@ const Form = () => {
       e.preventDefault();
 
       dispatch(createPost(postData))
+      setPostData('')
     }
     const clear = () => {
 
