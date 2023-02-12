@@ -1,16 +1,16 @@
 import { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
 
-import { AppBar, Typography, Grow, Grid, Container, useTheme, ThemeProvider } from '@mui/material';
+import { Grow, Grid, Container, useTheme, ThemeProvider } from '@mui/material';
 
 
 import Form from './components/Form/Form';
 import Posts from './components/Posts/Posts';
 import { getPosts } from './actions/posts'
 
-import memories from './images/memories.png';
 
 import useStyles from './styles'
+import Navbar from './components/Navbar/Navbar';
 
 function App() {
   const classes = useStyles();
@@ -28,10 +28,7 @@ function App() {
   return (
     <ThemeProvider theme={theme}>
       <Container maxWidth='lg'>
-        <AppBar className={classes.appBar} position='static' color='inherit'>
-          <Typography className={classes.heading} variant='h2' align='center'>Memories</Typography>
-          <img className={classes.image} src={memories} alt='memories' height='60' />
-        </AppBar>
+        <Navbar />
         <Grow in>
           <Container>
             <Grid container direction={'column-reverse'} justifyContent='space-between' alignItems='stretch' spacing={3}>
