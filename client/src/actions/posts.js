@@ -52,3 +52,4 @@ export const likePost = (id) => async (dispatch) => {
         console.log(error)
     }
 }
+

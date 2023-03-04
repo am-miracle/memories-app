@@ -2,17 +2,20 @@ import React, { useState } from 'react';
 // import { GoogleLogin } from 'react-google-login'
 import { Container, Avatar, Button, Paper, Typography, Grid } from '@mui/material'
 import { LockOutlined } from '@mui/icons-material'
-import { GoogleLogin, useGoogleLogin } from '@react-oauth/google';
+import { useGoogleLogin } from '@react-oauth/google';
 
-import useStyles from './styles'
+import useStyles from './styles';
 import Input from './Input';
 import Icon from './icon';
 import { useDispatch } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
+import axios from 'axios';
 
 
 const Auth = () => {
     const classes = useStyles();
-    const dispatch = useDispatch()
+    const dispatch = useDispatch();
+    const navigate = useNavigate()
     const [showPassword, setShowPassword] = useState(false)
     const [isSignup, setIsSignup] = useState(false)
 
@@ -31,34 +34,31 @@ const Auth = () => {
 
     const login = useGoogleLogin({
         onSuccess: (codeResponse) => {
-            console.log(codeResponse)
-            const result = codeResponse?.scope;
+            // console.log(codeResponse)
+            const result = () => null;
             const token = codeResponse?.access_token;
 
+            axios.get(`https://www.googleapis.com/oauth2/v3/userinfo?access_token=${token}`, {
+                headers: {
+                    Authorization: `Bearer ${token}`,
+                    Accept: 'application/json'
+                }
+            })
+            .then((res) => {
+                result(res.data);
+            })
+            .catch((err) => console.log(err));
+            console.log(result)
             try {
                 dispatch({ type: 'AUTH', data: { result, token } });
+
+                navigate('/')
             } catch (error) {
                 console.log(error)
             }
         },
         onError: (error) => console.log('Login Failed:', error)
     });
-
-    // const googleSuccess = async (credentialResponse) => {
-    //         console.log(credentialResponse)
-    //         const result = credentialResponse?.profileObj;
-    //         const token = credentialResponse?.tokenId;
-
-    //         try {
-    //             dispatch({ type: 'AUTH', data: { result, token } });
-    //         } catch (error) {
-    //             console.log(error)
-    //         }
-    // }
-    // const googleFailure = (err) => {
-    //     console.log(err)
-    //     console.log('Google Sign In was unsuccessful. Try Again Later')
-    // }
 
     return(
         <Container component='main' maxWidth='xs'>
@@ -84,24 +84,6 @@ const Auth = () => {
                     <Button type='submit' fullWidth variant='contained' color='primary' sx={{ marginBottom: '20px'}} className={classes.submit}>
                         {isSignup ? 'Sign Up' : 'Sign In'}
                     </Button>
-                    {/* <GoogleLogin
-                        // render={(renderProps) => (
-                            // <Button
-                            //     className={classes.googleButton}
-                            //     color='primary'
-                            //     fullWidth
-                            //     onClick={renderProps.onClick}
-                            //     disabled={renderProps.disabled}
-                            //     startIcon={<Icon />}
-                            //     variant='contained'
-                            // >
-                                // Google Sign In
-                            // </Button>
-                        // )}
-                        onSuccess={googleSuccess}
-                        onError={googleFailure}
-                        // cookiePolicy='single_host_origin'
-                    /> */}
                     <Button variant='contained' fullWidth className={classes.googleButton}  startIcon={<Icon />} onClick={() => login()}>Sign in with Google</Button>
                     <Grid container justifyContent={'flex-end'}>
                         <Grid item>
