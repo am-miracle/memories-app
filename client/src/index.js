@@ -11,13 +11,12 @@ import reducers from './reducers';
 import './index.css'
 
 const store = createStore(reducers, compose(applyMiddleware(thunk)))
-
-
 const root = ReactDOM.createRoot(document.getElementById('root'));
+const googleId = process.env.REACT_APP_API_KEY;
 
 root.render(
   <React.StrictMode>
-    <GoogleOAuthProvider clientId='788527807866-121d5rooq2rqfivgtvtqsg7a12jba33h.apps.googleusercontent.com'>
+    <GoogleOAuthProvider clientId={googleId}>
       <Provider store={store}>
         <BrowserRouter>
           <App />

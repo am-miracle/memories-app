@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-// import { GoogleLogin } from 'react-google-login'
 import { Container, Avatar, Button, Paper, Typography, Grid } from '@mui/material'
 import { LockOutlined } from '@mui/icons-material'
 import { useGoogleLogin } from '@react-oauth/google';
@@ -10,7 +9,16 @@ import Icon from './icon';
 import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
+import { signin, signup } from '../../actions/auth';
 
+
+const initialState = {
+    firstName: '',
+    lastName: '',
+    email: '',
+    password: '',
+    confirmPassword: '',
+}
 
 const Auth = () => {
     const classes = useStyles();
@@ -18,12 +26,18 @@ const Auth = () => {
     const navigate = useNavigate()
     const [showPassword, setShowPassword] = useState(false)
     const [isSignup, setIsSignup] = useState(false)
+    const [formData, setFormData] = useState(initialState)
 
-    const handleSubmit = () => {
-
+    const handleSubmit = (e) => {
+        e.preventDefault();
+        if(isSignup){
+            dispatch(signup(formData, navigate))
+        } else {
+            dispatch(signin(formData, navigate))
+        }
     }
-    const handleChange = () => {
-
+    const handleChange = (e) => {
+        setFormData({ ...formData, [e.target.name]: e.target.value})
     }
     const handleShowPassword = () => setShowPassword((prevShowPassword) => !prevShowPassword)
 
@@ -34,8 +48,7 @@ const Auth = () => {
 
     const login = useGoogleLogin({
         onSuccess: (codeResponse) => {
-            // console.log(codeResponse)
-            const result = () => null;
+            const result = [];
             const token = codeResponse?.access_token;
 
             axios.get(`https://www.googleapis.com/oauth2/v3/userinfo?access_token=${token}`, {
@@ -45,17 +58,16 @@ const Auth = () => {
                 }
             })
             .then((res) => {
-                result(res.data);
+                const foundResult = res.data;
+                result.push(foundResult)
+                try {
+                    dispatch({ type: 'AUTH', data: { result, token } });
+                    navigate('/')
+                } catch (error) {
+                    console.log(error)
+                }
             })
             .catch((err) => console.log(err));
-            console.log(result)
-            try {
-                dispatch({ type: 'AUTH', data: { result, token } });
-
-                navigate('/')
-            } catch (error) {
-                console.log(error)
-            }
         },
         onError: (error) => console.log('Login Failed:', error)
     });
@@ -73,7 +85,7 @@ const Auth = () => {
                             isSignup && (
                                 <>
                                     <Input name='firstName' label='First Name' handleChange={handleChange} autoFocus half />
-                                    <Input name='firstName' label='First Name' handleChange={handleChange} half />
+                                    <Input name='lastName' label='Last Name' handleChange={handleChange} half />
                                 </>
                             )
                         }
