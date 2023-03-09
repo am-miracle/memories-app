@@ -43,12 +43,12 @@ const Auth = () => {
 
     const switchMode =() => {
         setIsSignup((prevIsSignup) => !prevIsSignup);
-        handleShowPassword(false)
+        setShowPassword(false)
     }
 
     const login = useGoogleLogin({
         onSuccess: (codeResponse) => {
-            const result = [];
+            const target = {};
             const token = codeResponse?.access_token;
 
             axios.get(`https://www.googleapis.com/oauth2/v3/userinfo?access_token=${token}`, {
@@ -59,7 +59,8 @@ const Auth = () => {
             })
             .then((res) => {
                 const foundResult = res.data;
-                result.push(foundResult)
+                console.log(foundResult)
+                const result = Object.assign(foundResult, target)
                 try {
                     dispatch({ type: 'AUTH', data: { result, token } });
                     navigate('/')
