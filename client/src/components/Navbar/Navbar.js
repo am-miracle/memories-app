@@ -23,7 +23,6 @@ const Navbar = () => {
 
     setUser(JSON.parse(localStorage.getItem('profile')))
   }, [location])
-  console.log(user)
 
   return (
     <AppBar className={classes.appBar} sx={{flexDirection: 'row'}} position='static' color='inherit'>
