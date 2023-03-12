@@ -59,7 +59,6 @@ const Auth = () => {
             })
             .then((res) => {
                 const foundResult = res.data;
-                console.log(foundResult)
                 const result = Object.assign(foundResult, target)
                 try {
                     dispatch({ type: 'AUTH', data: { result, token } });

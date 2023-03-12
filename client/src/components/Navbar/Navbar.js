@@ -1,7 +1,8 @@
-import React, { useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { AppBar, Avatar, Button, Toolbar, Typography } from '@mui/material'
-import { useDispatch } from 'react-redux'
+import { useDispatch } from 'react-redux';
+import jwt_decode from 'jwt-decode'
 import memories from '../../images/memories.png';
 import useStyles from './styles'
 
@@ -12,17 +13,32 @@ const Navbar = () => {
   const navigate = useNavigate();
   const location = useLocation();
 
-  const logout = () => {
-    dispatch({ type: 'LOGOUT' });
-    navigate('/')
-    setUser(null)
-  }
+  const logout = useCallback(() => {
+      dispatch({ type: 'LOGOUT' });
+      navigate('/')
+      setUser(null)
+    }, [dispatch, navigate]
+  )
 
   useEffect(() => {
     const token = user?.token;
+    // try {
+    //   const decodedToken = jwt_decode(token);
+    //   console.log( typeof decodedToken)
+
+        // if(token) {
+    //   const decodedToken = decode(token);
+    //   console.log(token)
+
+    //   if(decodedToken.exp * 1000 < new Date().getTime()) logout();
+    // }
+
+    // } catch (error) {
+    //   console.log(error.message)
+    // }
 
     setUser(JSON.parse(localStorage.getItem('profile')))
-  }, [location])
+  }, [location, logout, user?.token])
 
   return (
     <AppBar className={classes.appBar} sx={{flexDirection: 'row'}} position='static' color='inherit'>
