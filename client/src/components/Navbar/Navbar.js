@@ -22,20 +22,15 @@ const Navbar = () => {
 
   useEffect(() => {
     const token = user?.token;
-    // try {
-    //   const decodedToken = jwt_decode(token);
-    //   console.log( typeof decodedToken)
-
-        // if(token) {
-    //   const decodedToken = decode(token);
-    //   console.log(token)
-
-    //   if(decodedToken.exp * 1000 < new Date().getTime()) logout();
-    // }
-
-    // } catch (error) {
-    //   console.log(error.message)
-    // }
+    console.log(token)
+    try {
+      if(token) {
+        const decodedToken = jwt_decode(token);
+        if(decodedToken.exp * 1000 < new Date().getTime()) logout();
+      }
+    } catch (error) {
+      console.log(error.message)
+    }
 
     setUser(JSON.parse(localStorage.getItem('profile')))
   }, [location, logout, user?.token])
