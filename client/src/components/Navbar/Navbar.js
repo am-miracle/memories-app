@@ -1,9 +1,8 @@
 import React, { useCallback, useEffect, useState } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
-import { AppBar, Avatar, Button, Toolbar, Typography } from '@mui/material'
+import { AppBar, Avatar, Button, Toolbar, Typography, createTheme } from '@mui/material'
 import { useDispatch } from 'react-redux';
 import jwt_decode from 'jwt-decode'
-import memories from '../../images/memories.png';
 import useStyles from './styles'
 
 const Navbar = () => {
@@ -19,6 +18,13 @@ const Navbar = () => {
       setUser(null)
     }, [dispatch, navigate]
   )
+  const logo = createTheme({
+    typography: {
+      fontFamily: [
+        'Righteous',
+        'cursive',
+      ].join(','),
+    },});
 
   useEffect(() => {
     const token = user?.token;
@@ -38,8 +44,8 @@ const Navbar = () => {
   return (
     <AppBar className={classes.appBar} sx={{flexDirection: 'row'}} position='static' color='inherit'>
       <div className={classes.brandContainer}>
-        <Typography component={Link} to='/' className={classes.heading} variant='h4'>Memories</Typography>
-        <img className={classes.image} src={memories} alt='memories' height='60' />
+        <Typography component={Link} to='/' className={classes.heading} theme={logo} variant='h4'>Memories</Typography>
+        {/* <img className={classes.image} src={memories} alt='memories' height='60' /> */}
       </div>
       <Toolbar className={classes.toolbar}>
         {user ? (

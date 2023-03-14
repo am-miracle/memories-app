@@ -53,14 +53,14 @@ const Home = () => {
     return (
         <Grow in>
             <Container maxWidth='xl'>
-                <Grid container sx={{ flexDirection: { xs: 'column-reverse', md: 'row'}}} justifyContent='space-between' alignItems='stretch' spacing={3} 
+                <Grid container sx={{ flexDirection: { xs: 'column-reverse', md: 'row'}}} justifyContent='space-between' alignItems='stretch' fullWidth spacing={3} 
                     className={classes.gridContainer}
                 >
-                    <Grid item xs={12} sm={6} md={9}>
+                    <Grid item xs={12} sm={12} md={9}>
                         <Posts setCurrentId={setCurrentId} />
                     </Grid>
-                    <Grid item xs={12} sm={6} md={3}>
-                        <AppBar className={classes.appBarSearch} position='static' color='inherit'>
+                    <Grid item xs={12} sm={12} md={3}>
+                        <AppBar className={classes.appBarSearch} position='static' color='inherit' elevation={2}>
                             <TextField
                                 name='search'
                                 variant='outlined'
@@ -82,7 +82,7 @@ const Home = () => {
                             <Button onClick={searchPost} className={classes.searchButton} variant='contained' color='primary'>Search</Button>
                         </AppBar>
                         <Form currentId={currentId} setCurrentId={setCurrentId} />
-                        <Paper className={classes.pagination} elevation={6}>
+                        <Paper className={classes.pagination} elevation={2}>
                             <Paginate />
                         </Paper>
                     </Grid>

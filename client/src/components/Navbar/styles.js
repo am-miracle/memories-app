@@ -11,8 +11,9 @@ export default makeStyles((theme) => ({
     padding: '10px 30px',
   },
   heading: {
-    color: 'rgba(0,183,255, 1)',
+    color: '#36393B',
     textDecoration: 'none',
+    fontFamily: 'Climate Crisis',
   },
   image: {
     marginLeft: '15px',

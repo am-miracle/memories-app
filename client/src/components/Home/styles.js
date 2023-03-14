@@ -4,7 +4,7 @@ export default makeStyles((theme) => ({
   appBarSearch: {
     borderRadius: 4,
     marginBottom: '1rem',
-    // display: 'flex',
+    display: 'flex',
     padding: '16px',
   },
   pagination: {
