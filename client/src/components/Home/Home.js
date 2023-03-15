@@ -53,7 +53,7 @@ const Home = () => {
     return (
         <Grow in>
             <Container maxWidth='xl'>
-                <Grid container sx={{ flexDirection: { xs: 'column-reverse', md: 'row'}}} justifyContent='space-between' alignItems='stretch' fullWidth spacing={3} 
+                <Grid container sx={{ flexDirection: { xs: 'column-reverse', md: 'row'}}} justifyContent='space-between' alignItems='stretch' spacing={3} 
                     className={classes.gridContainer}
                 >
                     <Grid item xs={12} sm={12} md={9}>
@@ -83,7 +83,7 @@ const Home = () => {
                         </AppBar>
                         <Form currentId={currentId} setCurrentId={setCurrentId} />
                         <Paper className={classes.pagination} elevation={2}>
-                            <Paginate />
+                            <Paginate page={page} />
                         </Paper>
                     </Grid>
                 </Grid>

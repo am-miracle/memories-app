@@ -3,9 +3,9 @@ import { FETCH_ALL, CREATE, DELETE, LIKE, UPDATE, FETCH_BY_SEARCH } from '../con
 
 // Action creators
 
-export const getPosts = () => async (dispatch) => {
+export const getPosts = (page) => async (dispatch) => {
     try {
-        const { data } = await api.fetchPosts();
+        const { data } = await api.fetchPosts(page);
 
         dispatch({ type: FETCH_ALL, payload: data})
     } catch (error) {
