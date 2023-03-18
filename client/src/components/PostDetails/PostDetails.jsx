@@ -6,6 +6,7 @@ import { useNavigate, useParams } from 'react-router-dom';
 import { CircularProgress, Divider, Paper, Typography } from '@mui/material';
 import moment from 'moment';
 import { getPost, getPostsBySearch } from '../../actions/posts';
+import CommentSection from './CommentSection'
 
 const PostDetails = () => {
   const classes = useStyles();
@@ -50,7 +51,8 @@ const PostDetails = () => {
           <Divider style={{ margin: '20px 0' }} />
           <Typography variant="body1"><strong>Realtime Chat - coming soon!</strong></Typography>
           <Divider style={{ margin: '20px 0' }} />
-          <Typography variant="body1"><strong>Comments - coming soon!</strong></Typography>
+          {/* COMMENT SECTION  */}
+          <CommentSection post={post} />
           <Divider style={{ margin: '20px 0' }} />
         </div>
         <div className={classes.imageSection}>
