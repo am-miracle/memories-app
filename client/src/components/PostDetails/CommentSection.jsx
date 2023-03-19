@@ -6,7 +6,9 @@ import { Button, TextField, Typography } from '@mui/material';
 const CommentSection = ({ post }) => {
     const classes = useStyles();
     const [comments, setComments] = useState([])
-    const [comment, setComment] = useState('')
+    const [comment, setComment] = useState('');
+
+    const handleClick = () => {};
 
   return (
     <div>
@@ -30,8 +32,8 @@ const CommentSection = ({ post }) => {
             value={comment}
             onChange={(e) => setComment(e.target.value)}
           />
-          <Button sx={{ marginTop: '10px'}} fullWidth disabled={!comment} variant='container'>
-            
+          <Button sx={{ marginTop: '10px'}} fullWidth disabled={!comment} variant='container' onClick={handleClick}>
+            Comment
           </Button>
         </div>
       </div>

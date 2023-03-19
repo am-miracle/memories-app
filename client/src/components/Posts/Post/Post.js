@@ -13,7 +13,9 @@ const Post = ({ post, setCurrentId }) => {
     const navigate = useNavigate();
     const user = JSON.parse(localStorage.getItem('profile'));
 
-    const openPost = () => navigate(`/posts/${post._id}`);
+    const openPost = () => {
+      navigate(`/posts/${post._id}`);
+    }
 
     const Likes = () => {
       if (post.likes.length > 0) {
@@ -35,7 +37,7 @@ const Post = ({ post, setCurrentId }) => {
 
   return (
     <Card className={classes.card} raised elevation={6}>
-      <ButtonBase className={classes.cardAction} onClick={openPost}>
+      <ButtonBase component='span' name='test' className={classes.cardActions} onClick={openPost}>
         <CardMedia className={classes.media} image={post.selectedFile || 'https://user-images.githubusercontent.com/194400/49531010-48dad180-f8b1-11e8-8d89-1e61320e1d82.png'} title={post.title} />
         <div className={classes.overlay}>
           <Typography variant="h6">{post.name}</Typography>
