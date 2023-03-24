@@ -49,4 +49,11 @@ export default makeStyles({
     display: 'flex',
     justifyContent: 'space-between',
   },
-});
+  cardAction: {
+    display: 'flex',
+    flexDirection: 'column',
+    // textAlign: 'initial',
+    cursor: 'pointer',
+    textDecoration: 'none',
+  },
+})
